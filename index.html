@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Friend's Epic Troll</title>
+    <style>
+        body {
+            font-family: 'Creepster', cursive;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            color: #ff3333;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            transition: all 0.5s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        p {
+            font-size: 1.5em;
+            color: #cccccc;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .sigma-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .sigma-item {
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ff3333;
+            color: #fff;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .sigma-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px #ff3333;
+        }
+
+        #rickroll, #skibidi {
+            margin: 30px 0;
+            display: none;
+            animation: slideIn 1s forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        iframe {
+            border: 2px solid #ff3333;
+            border-radius: 10px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Get Ready for the Ultimate Troll!</h1>
+        <p>Hold tight for a legendary surprise!</p>
+
+        <div class="sigma-grid">
+            <div class="sigma-item">Rule #1: Always rickroll</div>
+            <div class="sigma-item">Rule #2: Skibidi Toilet is king</div>
+            <div class="sigma-item">Rule #3: Never trust a link</div>
+            <div class="sigma-item">Rule #4: Trolling is an art</div>
+            <div class="sigma-item">Rule #5: Memes are life</div>
+            <div class="sigma-item">Rule #6: Stay sigma</div>
+        </div>
+
+        <div id="rickroll">
+            <h2>You've Been Rickrolled!</h2>
+            <iframe id="rickrollPlayer" width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div id="skibidi">
+            <h2>Skibidi Toilet Strikes!</h2>
+            <iframe id="skibidiPlayer" width="560" height="315" src="https://www.youtube.com/embed/u0SfkdxYzX4?enablejsapi=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let rickrollPlayer, skibidiPlayer;
+
+        // Initialize YouTube players when API is ready
+        function onYouTubeIframeAPIReady() {
+            rickrollPlayer = new YT.Player('rickrollPlayer', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+            skibidiPlayer = new YT.Player('skibidiPlayer', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        let playersReady = 0;
+        function onPlayerReady() {
+            playersReady++;
+            if (playersReady === 2) {
+                // Start sequence after 5 seconds
+                setTimeout(startVideoSequence, 5000);
+            }
+        }
+
+        function startVideoSequence() {
+            playRickroll();
+        }
+
+        function playRickroll() {
+            document.getElementById('rickroll').style.display = 'block';
+            document.getElementById('skibidi').style.display = 'none';
+            rickrollPlayer.playVideo();
+            setTimeout(function() {
+                rickrollPlayer.stopVideo();
+                playSkibidi();
+            }, 2000); // Play for 2 seconds
+        }
+
+        function playSkibidi() {
+            document.getElementById('rickroll').style.display = 'none';
+            document.getElementById('skibidi').style.display = 'block';
+            skibidiPlayer.playVideo();
+            setTimeout(function() {
+                skibidiPlayer.stopVideo();
+                playRickroll(); // Loop back to Rickroll
+            }, 2000); // Play for 2 seconds
+        }
+    </script>
+</body>
+</html>
